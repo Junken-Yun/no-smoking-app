@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>티끌모아금연</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Toss Mini App SDK -->
+    <script src="https://static.toss.im/sdk/toss-apps.js"></script>
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>🚭 티끌모아금연</h1>
+
+        <div class="app-info">
+            <p>금연을 실천할 때마다 300원을 기록하는 습관 앱</p>
+        </div>
+
+        <p class="sub">참을 때마다 300원 절약</p>
+
+        <p class="count">금연 성공 횟수</p>
+        <h2 id="count">0</h2>
+
+        <p class="money">절약 금액</p>
+        <h2 id="money">0 원</h2>
+
+        <div class="button-group">
+
+            <button onclick="addCount()" class="btn-primary">
+                참기 성공
+            </button>
+
+            <button onclick="sendMoney()" class="btn-secondary">
+                적립금 송금
+            </button>
+
+            <button onclick="resetCount()" class="btn-tertiary">
+                기록 초기화
+            </button>
+
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
