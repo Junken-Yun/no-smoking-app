@@ -2,7 +2,6 @@
 <html lang="ko">
 
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -12,7 +11,6 @@
 
     <!-- Toss Mini App SDK -->
     <script src="https://static.toss.im/sdk/toss-apps.js"></script>
-
 </head>
 
 <body>
@@ -22,34 +20,42 @@
         <h1>🚭 티끌모아금연</h1>
 
         <div class="app-info">
-            <p>금연을 실천할 때마다 300원을 기록하는 습관 앱</p>
+            <p>금연을 실천할 때마다 금액이 적립되는 습관 앱</p>
         </div>
 
-        <p class="sub">참을 때마다 300원 절약</p>
+        <p class="sub">참을 때마다 적립</p>
 
-        <p class="count">금연 성공 횟수</p>
-        <h2 id="count">0</h2>
+        <!-- 총 횟수 -->
+        <p class="count">총 성공 횟수</p>
+        <h2 id="total">0</h2>
+
+        <!-- 오늘 -->
         <p class="today-label">오늘 성공 횟수</p>
-<h3 id="today">0</h3>
+        <h3 id="today">0</h3>
 
+        <!-- 금액 -->
         <p class="money">절약 금액</p>
         <h2 id="money">0 원</h2>
-<p>오늘 횟수</p>
-<h3 id="today">0</h3>
 
-<p>연속 성공일 🔥</p>
-<h3 id="streak">0</h3>
+        <!-- streak -->
+        <p>연속 성공일 🔥</p>
+        <h3 id="streak">0</h3>
 
-<p>오늘 목표</p>
-<h3 id="goal">10</h3>
+        <!-- 목표 -->
+        <p>오늘 목표</p>
+        <h3 id="goal">10</h3>
+
+        <!-- 진행도 -->
         <div class="progress-container">
-    <div class="progress-bar">
-        <div id="progress-fill"></div>
-    </div>
-    <span id="progress-text">0 / 10</span>
-</div>
+            <div class="progress-bar">
+                <div id="progress-fill"></div>
+            </div>
+            <span id="progress-text">0 / 10</span>
+        </div>
 
-<button onclick="setMoney()">금액 설정</button>
+        <!-- 설정 -->
+        <button onclick="setMoney()">금액 설정</button>
+
         <div class="button-group">
 
             <button onclick="addCount()" class="btn-primary">
