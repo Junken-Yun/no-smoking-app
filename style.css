@@ -1,107 +1,68 @@
 body {
-
     font-family: Arial;
     background: #f4f4f4;
     text-align: center;
     margin: 0;
-    padding: 0;
     max-width: 500px;
     margin: auto;
-
 }
 
 .container {
-
-    margin-top: 80px;
+    margin-top: 60px;
     padding: 20px;
-
 }
 
 .app-info {
-
     font-size: 14px;
     color: #666;
-    margin-bottom: 10px;
-
 }
 
 .sub {
-
     color: #666;
-    margin-bottom: 30px;
-
-}
-
-h1 {
-
-    font-size: 32px;
-
+    margin-bottom: 20px;
 }
 
 h2 {
-
-    font-size: 40px;
+    font-size: 36px;
     margin: 10px;
-
 }
 
-.button-group {
+h3 {
+    font-size: 22px;
+    margin: 5px;
+}
 
+/* 버튼 */
+.button-group {
     display: flex;
     flex-direction: column;
     gap: 12px;
     margin-top: 30px;
-
 }
 
 button {
-
-    padding: 16px;
-    font-size: 18px;
+    padding: 14px;
+    font-size: 16px;
     border: none;
     border-radius: 12px;
     cursor: pointer;
-
 }
-
-/* Primary CTA */
 
 .btn-primary {
-
     background: #0064ff;
     color: white;
-    font-weight: bold;
-
 }
-
-/* Secondary */
 
 .btn-secondary {
-
     background: #f1f3f5;
-    color: #333;
-
 }
-
-/* Tertiary */
 
 .btn-tertiary {
-
     background: transparent;
     color: #888;
-    font-size: 14px;
-
-}
-.today-label {
-    margin-top: 20px;
-    color: #666;
 }
 
-h3 {
-    font-size: 24px;
-    margin: 5px;
-}
-
+/* 진행도 */
 .progress-container {
     display: flex;
     align-items: center;
@@ -126,7 +87,5 @@ h3 {
 
 #progress-text {
     font-size: 14px;
-    color: #333;
     min-width: 60px;
-    text-align: right;
 }
