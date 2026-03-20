@@ -1,115 +1,127 @@
-const UNIT_MONEY = 300;
+const DEFAULT_DATA = {
+    totalCount: 0,
+    unitMoney: 300,
+    goal: 10,
+    streak: 0,
+    lastSuccessDate: null,
+    history: {},
+    transfers: []
+};
 
-// 데이터 구조
-let data = JSON.parse(localStorage.getItem("noSmokingData"));
+let data = JSON.parse(localStorage.getItem("noSmokingV3")) || DEFAULT_DATA;
 
-if (!data) {
-    data = {
-        count: 0,
-        lastDate: getToday(),
-        todayCount: 0
-    };
-}
-
-// 날짜 체크 (자정 자동 초기화)
-function checkDateReset() {
-    const today = getToday();
-
-    if (data.lastDate !== today) {
-        data.todayCount = 0;
-        data.lastDate = today;
-        saveData();
-    }
-}
-
-// 오늘 날짜 문자열
-function getToday() {
+// 날짜
+function today() {
     return new Date().toISOString().slice(0, 10);
 }
 
 // 저장
-function saveData() {
-    localStorage.setItem("noSmokingData", JSON.stringify(data));
+function save() {
+    localStorage.setItem("noSmokingV3", JSON.stringify(data));
 }
 
-// UI 업데이트
-function updateUI() {
-    document.getElementById("count").innerText = data.count;
-
-    let money = data.count * UNIT_MONEY;
-    document.getElementById("money").innerText = money.toLocaleString() + " 원";
-
-    document.getElementById("today").innerText = data.todayCount;
+// 오늘 기록 가져오기
+function getTodayCount() {
+    return data.history[today()] || 0;
 }
 
 // 카운트 증가
 function addCount() {
-    checkDateReset();
+    const t = today();
 
-    data.count++;
-    data.todayCount++;
+    data.totalCount++;
 
-    saveData();
+    data.history[t] = (data.history[t] || 0) + 1;
+
+    // streak 계산
+    if (data.lastSuccessDate !== t) {
+        if (isYesterday(data.lastSuccessDate)) {
+            data.streak++;
+        } else {
+            data.streak = 1;
+        }
+        data.lastSuccessDate = t;
+    }
+
+    save();
     updateUI();
-
-    showPraise();
+    checkGoal();
 }
 
-// 칭찬 시스템
-function showPraise() {
-    if (data.todayCount === 5) {
-        alert("👍 오늘 벌써 5번 성공!");
-    } else if (data.todayCount === 10) {
-        alert("🔥 대단합니다! 10번 성공!");
-    } else if (data.todayCount % 20 === 0) {
-        alert("🚀 습관이 만들어지고 있어요!");
+// 어제 체크
+function isYesterday(dateStr) {
+    if (!dateStr) return false;
+    const d = new Date(dateStr);
+    d.setDate(d.getDate() + 1);
+    return d.toISOString().slice(0, 10) === today();
+}
+
+// 목표 달성 체크
+function checkGoal() {
+    const todayCount = getTodayCount();
+
+    if (todayCount === data.goal) {
+        alert("🎯 오늘 목표 달성!");
     }
 }
 
-// 초기화
-function resetCount() {
-    let money = data.count * UNIT_MONEY;
-
-    if (confirm(`정말 초기화할까요?\n현재 절약 금액: ${money.toLocaleString()}원`)) {
-        data.count = 0;
-        data.todayCount = 0;
-        saveData();
-        updateUI();
-    }
-}
-
-// 🔥 이체 유도 (핵심 개선)
+// 이체 유도 + 기록
 function sendMoney() {
-    let money = data.count * UNIT_MONEY;
+    const money = data.totalCount * data.unitMoney;
 
     if (money === 0) {
         alert("적립된 금액이 없습니다.");
         return;
     }
 
-    let confirmMsg = `현재 ${money.toLocaleString()}원이 적립되었습니다.\n\n` +
-        "✔ 실제 계좌로 이체를 진행하시겠습니까?\n" +
-        "✔ 이체 후 기록은 초기화됩니다.";
+    if (confirm(`${money.toLocaleString()}원을 이체하시겠습니까?\n이체 후 초기화됩니다.`)) {
 
-    if (confirm(confirmMsg)) {
+        alert("금융 앱을 열어 직접 이체해주세요.");
 
-        alert(
-            "📌 안내\n\n" +
-            "토스 또는 사용 중인 금융 앱을 열어\n" +
-            `${money.toLocaleString()}원을 직접 이체해주세요.\n\n` +
-            "이체 완료 후 확인 버튼을 눌러주세요."
-        );
+        data.transfers.push({
+            date: today(),
+            amount: money
+        });
 
-        // 초기화
-        data.count = 0;
-        data.todayCount = 0;
-        saveData();
+        data.totalCount = 0;
+
+        save();
+        updateUI();
+    }
+}
+
+// UI 업데이트
+function updateUI() {
+    document.getElementById("total").innerText = data.totalCount;
+
+    document.getElementById("today").innerText = getTodayCount();
+
+    document.getElementById("money").innerText =
+        (data.totalCount * data.unitMoney).toLocaleString() + " 원";
+
+    document.getElementById("streak").innerText = data.streak;
+
+    document.getElementById("goal").innerText = data.goal;
+}
+
+// 초기화
+function resetAll() {
+    if (confirm("전체 초기화할까요?")) {
+        data = DEFAULT_DATA;
+        save();
+        updateUI();
+    }
+}
+
+// 설정 (금액 변경)
+function setMoney() {
+    const val = prompt("1회 금액 입력", data.unitMoney);
+    if (val) {
+        data.unitMoney = parseInt(val);
+        save();
         updateUI();
     }
 }
 
 // 초기 실행
-document.addEventListener("DOMContentLoaded", function () {
-    checkDateReset();
-    updateUI();
-});
+document.addEventListener("DOMContentLoaded", updateUI);
