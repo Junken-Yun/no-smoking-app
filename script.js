@@ -20,9 +20,17 @@ function save() {
     localStorage.setItem("noSmokingV3", JSON.stringify(data));
 }
 
-// 오늘 기록 가져오기
+// 오늘 횟수
 function getTodayCount() {
     return data.history[today()] || 0;
+}
+
+// 어제 체크
+function isYesterday(dateStr) {
+    if (!dateStr) return false;
+    const d = new Date(dateStr);
+    d.setDate(d.getDate() + 1);
+    return d.toISOString().slice(0, 10) === today();
 }
 
 // 카운트 증가
@@ -30,10 +38,8 @@ function addCount() {
     const t = today();
 
     data.totalCount++;
-
     data.history[t] = (data.history[t] || 0) + 1;
 
-    // streak 계산
     if (data.lastSuccessDate !== t) {
         if (isYesterday(data.lastSuccessDate)) {
             data.streak++;
@@ -48,24 +54,14 @@ function addCount() {
     checkGoal();
 }
 
-// 어제 체크
-function isYesterday(dateStr) {
-    if (!dateStr) return false;
-    const d = new Date(dateStr);
-    d.setDate(d.getDate() + 1);
-    return d.toISOString().slice(0, 10) === today();
-}
-
-// 목표 달성 체크
+// 목표 체크
 function checkGoal() {
-    const todayCount = getTodayCount();
-
-    if (todayCount === data.goal) {
+    if (getTodayCount() === data.goal) {
         alert("🎯 오늘 목표 달성!");
     }
 }
 
-// 이체 유도 + 기록
+// 송금 유도
 function sendMoney() {
     const money = data.totalCount * data.unitMoney;
 
@@ -90,40 +86,16 @@ function sendMoney() {
     }
 }
 
-// UI 업데이트
-function updateUI() {
-    const todayCount = getTodayCount();
-const goal = data.goal;
-
-let percent = Math.min((todayCount / goal) * 100, 100);
-
-document.getElementById("progress-fill").style.width = percent + "%";
-
-document.getElementById("progress-text").innerText =
-    `${todayCount} / ${goal}`;
-    
-    document.getElementById("total").innerText = data.totalCount;
-
-    document.getElementById("today").innerText = getTodayCount();
-
-    document.getElementById("money").innerText =
-        (data.totalCount * data.unitMoney).toLocaleString() + " 원";
-
-    document.getElementById("streak").innerText = data.streak;
-
-    document.getElementById("goal").innerText = data.goal;
-}
-
 // 초기화
-function resetAll() {
-    if (confirm("전체 초기화할까요?")) {
-        data = DEFAULT_DATA;
+function resetCount() {
+    if (confirm("정말 초기화할까요?")) {
+        data = { ...DEFAULT_DATA };
         save();
         updateUI();
     }
 }
 
-// 설정 (금액 변경)
+// 금액 설정
 function setMoney() {
     const val = prompt("1회 금액 입력", data.unitMoney);
     if (val) {
@@ -131,6 +103,24 @@ function setMoney() {
         save();
         updateUI();
     }
+}
+
+// UI 업데이트
+function updateUI() {
+    document.getElementById("total").innerText = data.totalCount;
+    document.getElementById("today").innerText = getTodayCount();
+    document.getElementById("money").innerText =
+        (data.totalCount * data.unitMoney).toLocaleString() + " 원";
+    document.getElementById("streak").innerText = data.streak;
+    document.getElementById("goal").innerText = data.goal;
+
+    // 진행도
+    const todayCount = getTodayCount();
+    const percent = Math.min((todayCount / data.goal) * 100, 100);
+
+    document.getElementById("progress-fill").style.width = percent + "%";
+    document.getElementById("progress-text").innerText =
+        `${todayCount} / ${data.goal}`;
 }
 
 // 초기 실행
