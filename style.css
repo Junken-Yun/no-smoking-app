@@ -12,11 +12,6 @@ body {
     padding: 20px;
 }
 
-.app-info {
-    font-size: 14px;
-    color: #666;
-}
-
 .sub {
     color: #666;
     margin-bottom: 20px;
@@ -30,6 +25,13 @@ h2 {
 h3 {
     font-size: 22px;
     margin: 5px;
+}
+
+/* streak 강조 */
+#streak {
+    font-size: 26px;
+    font-weight: bold;
+    color: #ff6b6b;
 }
 
 /* 버튼 */
@@ -82,7 +84,7 @@ button {
     height: 100%;
     width: 0%;
     background: #0064ff;
-    transition: width 0.3s ease;
+    transition: all 0.3s ease;
 }
 
 #progress-text {

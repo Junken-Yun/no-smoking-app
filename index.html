@@ -8,9 +8,6 @@
     <title>티끌모아금연</title>
 
     <link rel="stylesheet" href="style.css">
-
-    <!-- Toss Mini App SDK -->
-    <script src="https://static.toss.im/sdk/toss-apps.js"></script>
 </head>
 
 <body>
@@ -19,10 +16,6 @@
 
         <h1>🚭 티끌모아금연</h1>
 
-        <div class="app-info">
-            <p>금연을 실천할 때마다 금액이 적립되는 습관 앱</p>
-        </div>
-
         <p class="sub">참을 때마다 적립</p>
 
         <!-- 총 횟수 -->
@@ -30,11 +23,11 @@
         <h2 id="total">0</h2>
 
         <!-- 오늘 -->
-        <p class="today-label">오늘 성공 횟수</p>
+        <p>오늘 성공 횟수</p>
         <h3 id="today">0</h3>
 
         <!-- 금액 -->
-        <p class="money">절약 금액</p>
+        <p>절약 금액</p>
         <h2 id="money">0 원</h2>
 
         <!-- streak -->
@@ -44,6 +37,9 @@
         <!-- 목표 -->
         <p>오늘 목표</p>
         <h3 id="goal">10</h3>
+
+        <!-- 남은 횟수 -->
+        <p id="remain">목표까지 10번 남음</p>
 
         <!-- 진행도 -->
         <div class="progress-container">

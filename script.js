@@ -95,32 +95,60 @@ function resetCount() {
     }
 }
 
-// 금액 설정
+// 금액 설정 (이상값 방어)
 function setMoney() {
     const val = prompt("1회 금액 입력", data.unitMoney);
-    if (val) {
-        data.unitMoney = parseInt(val);
-        save();
-        updateUI();
+    const parsed = parseInt(val);
+
+    if (!val || isNaN(parsed) || parsed <= 0) {
+        alert("잘못된 값입니다. 기본값 300원으로 설정됩니다.");
+        data.unitMoney = 300;
+    } else {
+        data.unitMoney = parsed;
     }
+
+    save();
+    updateUI();
 }
 
 // UI 업데이트
 function updateUI() {
+    const todayCount = getTodayCount();
+    const goal = data.goal;
+
     document.getElementById("total").innerText = data.totalCount;
-    document.getElementById("today").innerText = getTodayCount();
+    document.getElementById("today").innerText = todayCount;
     document.getElementById("money").innerText =
         (data.totalCount * data.unitMoney).toLocaleString() + " 원";
     document.getElementById("streak").innerText = data.streak;
-    document.getElementById("goal").innerText = data.goal;
+    document.getElementById("goal").innerText = goal;
 
-    // 진행도
-    const todayCount = getTodayCount();
-    const percent = Math.min((todayCount / data.goal) * 100, 100);
+    let percent = Math.min((todayCount / goal) * 100, 100);
+    const progressFill = document.getElementById("progress-fill");
 
-    document.getElementById("progress-fill").style.width = percent + "%";
+    progressFill.style.width = percent + "%";
+
+    // 색상 변화
+    if (todayCount < goal * 0.5) {
+        progressFill.style.background = "#adb5bd";
+    } else if (todayCount < goal) {
+        progressFill.style.background = "#0064ff";
+    } else if (todayCount === goal) {
+        progressFill.style.background = "#2ecc71";
+    } else {
+        const colors = ["#ff6b6b", "#ffa94d", "#845ef7", "#20c997"];
+        progressFill.style.background =
+            colors[todayCount % colors.length];
+    }
+
     document.getElementById("progress-text").innerText =
-        `${todayCount} / ${data.goal}`;
+        `${todayCount} / ${goal}`;
+
+    const remain = goal - todayCount;
+    document.getElementById("remain").innerText =
+        remain > 0
+            ? `목표까지 ${remain}번 남음`
+            : `🎉 목표 초과! 계속 유지 중`;
 }
 
 // 초기 실행
