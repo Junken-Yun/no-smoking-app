@@ -92,6 +92,16 @@ function sendMoney() {
 
 // UI 업데이트
 function updateUI() {
+    const todayCount = getTodayCount();
+const goal = data.goal;
+
+let percent = Math.min((todayCount / goal) * 100, 100);
+
+document.getElementById("progress-fill").style.width = percent + "%";
+
+document.getElementById("progress-text").innerText =
+    `${todayCount} / ${goal}`;
+    
     document.getElementById("total").innerText = data.totalCount;
 
     document.getElementById("today").innerText = getTodayCount();
