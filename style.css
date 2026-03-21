@@ -1,45 +1,39 @@
 body {
+    margin:0;
     font-family: Arial;
-    background: #f4f4f4;
-    margin: 0;
+    background:#f4f4f4;
 }
 
-/* 헤더 */
 .app-header {
-    width: 100%;
-    height: 55px;
-    background: #0064ff;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
+    width:100%;
+    height:55px;
+    background:#0064ff;
+    color:white;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-weight:bold;
 }
 
-/* 앱 */
 .app {
-    max-width: 420px;
-    margin: auto;
+    max-width:420px;
+    margin:auto;
 }
 
-/* 🔥 섹션 분리 (핵심) */
-.section {
-    margin-bottom: 15px;
-}
+.section { margin-bottom:15px; }
 
-/* 카드 */
 .grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-    padding: 15px;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:10px;
+    padding:15px;
 }
 
 .card {
-    background: white;
-    border-radius: 16px;
-    padding: 10px;
-    min-height: 90px; /* 🔥 변경 */
+    background:white;
+    border-radius:16px;
+    padding:10px;
+    min-height:90px;
     display:flex;
     flex-direction:column;
     justify-content:center;
@@ -47,14 +41,9 @@ body {
     box-shadow:0 3px 8px rgba(0,0,0,0.1);
 }
 
-.empty {
-    visibility: hidden;
-}
+.empty { visibility:hidden; }
 
-/* 진행도 */
-.section-progress {
-    padding: 0 15px;
-}
+.section-progress { padding:0 15px; }
 
 .progress-bar {
     height:10px;
@@ -67,7 +56,6 @@ body {
     background:#0064ff;
 }
 
-/* CTA */
 .section-cta {
     display:flex;
     flex-direction:column;
@@ -75,42 +63,34 @@ body {
     gap:10px;
 }
 
-/* 메인 버튼 */
 .cta-main {
-    width: 90%;
-    min-height: 90px;
-    font-size: 18px;
+    width:90%;
+    min-height:90px;
     background:#0064ff;
     color:white;
     border:none;
     border-radius:16px;
+    font-size:18px;
     font-weight:bold;
-
-    white-space: normal;
-    word-break: keep-all;
-    line-height: 1.3;
-    padding: 10px;
+    padding:10px;
+    line-height:1.3;
 }
 
 .cta-main.disabled {
-    background: #d1d5db;
-    color: #555;
-    font-size: 14px;
+    background:#d1d5db;
+    color:#555;
+    font-size:14px;
 }
 
-/* 서브 버튼 */
 .cta-sub {
-    width: 90%;
-    min-height: 65px;
-    font-size: 16px;
+    width:90%;
+    min-height:65px;
     background:#2ecc71;
     color:white;
     border:none;
     border-radius:14px;
-    font-weight:bold;
 }
 
-/* 하단 버튼 */
 .cta-buttons {
     display:flex;
     gap:10px;
@@ -130,9 +110,45 @@ body {
     background:#ff3b3b;
 }
 
-/* streak */
+.modal {
+    position:fixed;
+    top:0; left:0;
+    width:100%; height:100%;
+    background:rgba(0,0,0,0.5);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.modal-content {
+    background:white;
+    padding:20px;
+    border-radius:16px;
+    width:90%;
+    max-width:360px;
+}
+
+.hidden { display:none; }
+
+#calendar {
+    display:grid;
+    grid-template-columns:repeat(7,1fr);
+    gap:6px;
+}
+
+.day-box {
+    border:1px solid #ddd;
+    border-radius:10px;
+    padding:5px;
+    text-align:center;
+}
+
+.day-header {
+    font-size:12px;
+    font-weight:bold;
+}
+
 #streak {
-    white-space: pre-line;
-    font-size: 13px;
-    line-height: 1.2;
+    white-space:pre-line;
+    font-size:13px;
 }

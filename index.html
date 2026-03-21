@@ -15,8 +15,7 @@
 
 <div class="app">
 
-<!-- 🔥 카드 영역 -->
-<div class="section section-card">
+<div class="section">
     <div class="grid">
         <div class="card"><p>누적 성공</p><h2 id="total">0</h2></div>
         <div class="card"><p>오늘 성공</p><h2 id="today">0</h2></div>
@@ -28,7 +27,6 @@
     </div>
 </div>
 
-<!-- 🔥 진행도 영역 -->
 <div class="section section-progress">
     <div class="progress-bar">
         <div id="progress-fill"></div>
@@ -36,13 +34,11 @@
     <span id="progress-text">0 / 10</span>
 </div>
 
-<!-- 🔥 CTA 영역 -->
 <div class="section section-cta">
     <button class="cta-main" onclick="addCount()">🚭 참기 성공</button>
     <button class="cta-sub" onclick="sendMoney()">💸 절약금 송금</button>
 </div>
 
-<!-- 🔥 하단 메뉴 -->
 <div class="section">
     <div class="cta-buttons">
         <button class="cta small" onclick="openStats()">📊 통계</button>
@@ -51,6 +47,24 @@
     </div>
 </div>
 
+</div>
+
+<!-- 통계 -->
+<div id="statsModal" class="modal hidden">
+    <div class="modal-content">
+        <h2>최근 30일 통계</h2>
+        <canvas id="chart" width="320" height="220"></canvas>
+        <button onclick="closeModal()">닫기</button>
+    </div>
+</div>
+
+<!-- 달력 -->
+<div id="calendarModal" class="modal hidden">
+    <div class="modal-content">
+        <h2>월간 기록</h2>
+        <div id="calendar"></div>
+        <button onclick="closeModal()">닫기</button>
+    </div>
 </div>
 
 <script src="script.js"></script>
