@@ -1,77 +1,58 @@
 <!DOCTYPE html>
 <html lang="ko">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title>티끌모아금연</title>
-
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>티끌모아금연</title>
+<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <div class="container">
+<header class="app-header">
+    🚭 티끌모아금연
+</header>
 
-        <h1>🚭 티끌모아금연</h1>
+<div class="app">
 
-        <p class="sub">참을 때마다 적립</p>
+<!-- 🔥 카드 영역 -->
+<div class="section section-card">
+    <div class="grid">
+        <div class="card"><p>누적 성공</p><h2 id="total">0</h2></div>
+        <div class="card"><p>오늘 성공</p><h2 id="today">0</h2></div>
+        <div class="card"><p>절약 금액</p><h2 id="money">0</h2></div>
 
-        <!-- 총 횟수 -->
-        <p class="count">총 성공 횟수</p>
-        <h2 id="total">0</h2>
-
-        <!-- 오늘 -->
-        <p>오늘 성공 횟수</p>
-        <h3 id="today">0</h3>
-
-        <!-- 금액 -->
-        <p>절약 금액</p>
-        <h2 id="money">0 원</h2>
-
-        <!-- streak -->
-        <p>연속 성공일 🔥</p>
-        <h3 id="streak">0</h3>
-
-        <!-- 목표 -->
-        <p>오늘 목표</p>
-        <h3 id="goal">10</h3>
-
-        <!-- 남은 횟수 -->
-        <p id="remain">목표까지 10번 남음</p>
-
-        <!-- 진행도 -->
-        <div class="progress-container">
-            <div class="progress-bar">
-                <div id="progress-fill"></div>
-            </div>
-            <span id="progress-text">0 / 10</span>
-        </div>
-
-        <!-- 설정 -->
-        <button onclick="setMoney()">금액 설정</button>
-
-        <div class="button-group">
-
-            <button onclick="addCount()" class="btn-primary">
-                참기 성공
-            </button>
-
-            <button onclick="sendMoney()" class="btn-secondary">
-                적립금 송금
-            </button>
-
-            <button onclick="resetCount()" class="btn-tertiary">
-                기록 초기화
-            </button>
-
-        </div>
-
+        <div class="card"><p>연속 성공</p><h2 id="streak">0</h2></div>
+        <div class="card"><p>오늘 목표</p><h2 id="goal">10</h2></div>
+        <div class="card empty"></div>
     </div>
+</div>
 
-    <script src="script.js"></script>
+<!-- 🔥 진행도 영역 -->
+<div class="section section-progress">
+    <div class="progress-bar">
+        <div id="progress-fill"></div>
+    </div>
+    <span id="progress-text">0 / 10</span>
+</div>
 
+<!-- 🔥 CTA 영역 -->
+<div class="section section-cta">
+    <button class="cta-main" onclick="addCount()">🚭 참기 성공</button>
+    <button class="cta-sub" onclick="sendMoney()">💸 절약금 송금</button>
+</div>
+
+<!-- 🔥 하단 메뉴 -->
+<div class="section">
+    <div class="cta-buttons">
+        <button class="cta small" onclick="openStats()">📊 통계</button>
+        <button class="cta small" onclick="openCalendar()">📅 달력</button>
+        <button class="cta small danger" onclick="resetToday()">초기화</button>
+    </div>
+</div>
+
+</div>
+
+<script src="script.js"></script>
 </body>
-
 </html>
